@@ -1,4 +1,3 @@
-import { BOOLEAN } from "sequelize";
 import tasksModel from "../models/tasks.model.js";
 
 //POST /api/tasks: crear una nueva tarea
@@ -7,7 +6,7 @@ export const createTasks = async (req, res) => {
         let {title, description, isComplete} = req.body;
 
         //Validaciones para "title"
-        let titleUnico = await userModel.findOne({ where: { email } })
+        let titleUnico = await tasksModel.findOne({ where: { tile } })
         if (titleUnico) {
             return res.status(400).json({ message: "Error: Este título ya se encuentra registrado" })
         }
@@ -29,7 +28,7 @@ export const createTasks = async (req, res) => {
         }
 
         //Validaciones para "isComplete"
-        if (isComplete !== (true || false)) {
+        if (typeof isComplete !== "boolean") {
             return res.status(400).json({ message: "Error: Campo isComplete debe ser de tipo booleano (true o false)" })
         }
 
@@ -68,7 +67,7 @@ export const listTaskById = async (req, res) => {
     }
 };
 
-//DELETE /api/tasks/:id: eliminar un usuario
+//DELETE /api/tasks/:id: eliminar una tarea
 export const deleteTask = async (req, res) => {
     const { id } = req.params;
     try {
@@ -84,13 +83,13 @@ export const deleteTask = async (req, res) => {
     }
 }
 
-//PUT /api/users/:id: actualizar un usuario existente (con validaciones)
-export const updateUser = async (req, res) => {
+//PUT /api/tasks/:id: actualizar un usuario existente (con validaciones)
+export const updateTask = async (req, res) => {
     const { id } = req.params;
     let {title, description, isComplete} = req.body;
 
     //Validaciones para "title"
-    let titleUnico = await userModel.findOne({ where: { title } })
+    let titleUnico = await tasksModel.findOne({ where: { title } })
     if (titleUnico) {
         return res.status(400).json({ message: "Error: Este título ya se encuentra registrado" })
     }
@@ -112,7 +111,7 @@ export const updateUser = async (req, res) => {
     }
 
     //Validaciones para "isComplete"
-    if (isComplete !== (true || false)) {
+    if (typeof isComplete !== "boolean") {
         return res.status(400).json({ message: "Error: Campo isComplete debe ser de tipo booleano (true o false)" })
     }
 
