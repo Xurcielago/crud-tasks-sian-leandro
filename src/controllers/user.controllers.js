@@ -109,9 +109,13 @@ export const updateUser = async (req, res) => {
     if (email.trim() === '') {
         return res.status(400).json({ message: "Error: Campo email no puede estar vacío" })
     }
-    let emailUnico = await userModel.findOne({ where: { email } })
-    if (emailUnico) {
-        return res.status(400).json({ message: "Error: Este email ya se encuentra registrado" })
+
+    const emailActual = await userModel.findByPk(id);
+    if (emailActual.email !== email) {
+        let emailUnico = await userModel.findOne({ where: { email } })
+        if (emailUnico) {
+            return res.status(400).json({ message: "Error: Este email ya se encuentra registrado" })
+        }
     }
 
     //Validaciones para "password"

@@ -58,7 +58,7 @@ export const listTaskById = async (req, res) => {
     try {
         const listedTaskID = await tasksModel.findByPk(id);
         if (listedTaskID) {
-            res.status(200).json(listeTaskID);
+            res.status(200).json(listedTaskID);
         } else {
             res.status(404).json({ message: 'La tarea buscada no existe' });
         }
@@ -83,15 +83,18 @@ export const deleteTask = async (req, res) => {
     }
 }
 
-//PUT /api/tasks/:id: actualizar un usuario existente (con validaciones)
+//PUT /api/tasks/:id: actualizar una tarea existente (con validaciones)
 export const updateTask = async (req, res) => {
     const { id } = req.params;
     let {title, description, isComplete} = req.body;
 
     //Validaciones para "title"
-    let titleUnico = await tasksModel.findOne({ where: { title } })
-    if (titleUnico) {
-        return res.status(400).json({ message: "Error: Este título ya se encuentra registrado" })
+    const titleActual = await tasksModel.findByPk(id);
+    if (titleActual.title !== title) {
+        let titleUnico = await tasksModel.findOne({ where: { title } })
+        if (titleUnico) {
+            return res.status(400).json({ message: titleActual })
+        }
     }
     const titleLength = await title.length
     if (title > 100) {
