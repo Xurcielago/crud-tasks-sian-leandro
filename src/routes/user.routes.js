@@ -1,11 +1,11 @@
 import { Router } from "express";
-const routerDB = Router();
-//import {} from ../controllers/user.controllers.js
+const userRoutes = Router();
+import {createUser, listALLuser,  listUserById, deleteUser, updateUser} from "../controllers/user.controllers.js"
 
-routerDB.post("/users", )
-routerDB.get("/users", )
-routerDB.get("/users/:id", )
-routerDB.put("/users/:id",)
-routerDB.delete("/users/:id",)
+userRoutes.post("/users", createUser)
+userRoutes.get("/users", listALLuser)
+userRoutes.get("/users/:id", listUserById)
+userRoutes.put("/users/:id", updateUser)
+userRoutes.delete("/users/:id", deleteUser)
 
-export default routerDB
+export default userRoutes
