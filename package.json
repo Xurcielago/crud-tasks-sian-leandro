@@ -1,5 +1,5 @@
 {
-  "name": "books",
+  "name": "users",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "description": "API REST para gestión de libros con Node.js, Express y Sequelize",
   "dependencies": {
     "dotenv": "^16.6.0",
     "express": "^5.1.0",
