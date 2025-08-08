@@ -6,7 +6,7 @@ export const createTasks = async (req, res) => {
         let {title, description, isComplete} = req.body;
 
         //Validaciones para "title"
-        let titleUnico = await tasksModel.findOne({ where: { tile } })
+        let titleUnico = await tasksModel.findOne({ where: { title } })
         if (titleUnico) {
             return res.status(400).json({ message: "Error: Este título ya se encuentra registrado" })
         }
