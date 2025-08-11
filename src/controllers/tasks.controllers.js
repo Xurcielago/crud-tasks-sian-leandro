@@ -1,4 +1,5 @@
 import tasksModel from "../models/tasks.model.js";
+import userModel from "../models/user.model.js";
 
 //POST /api/tasks: crear una nueva tarea
 export const createTasks = async (req, res) => {
@@ -42,7 +43,7 @@ export const createTasks = async (req, res) => {
 //GET /api/tasks: listar todos los tareas
 export const listALLtasks = async (req, res) => {
     try {
-        const listedTasks = await tasksModel.findAll()
+        const listedTasks = await tasksModel.findAll
         res.json(listedTasks)
 
     } catch (err) {
@@ -66,6 +67,41 @@ export const listTaskById = async (req, res) => {
         res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
     }
 };
+
+
+
+//GET /api/author_task/:id obtener tarea por ID incluyendo la información del usuario autor
+export const authorTask = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const listedTaskID = await tasksModel.findByPk(id,{
+            attributes: {
+                exclude: ["user_id"]
+            },
+            include: [
+                {
+                    Model: userModel,
+                    as: "Author",
+                    attributes: {
+                        exclude: ["password", "person_id"],
+                    }
+                }
+            ],
+        }
+    )
+    } catch (err) {
+
+    }
+};
+
+/*
+const tasks = await tasksModel.findAll{{
+    include [
+        
+    ]
+}}
+*/
 
 //DELETE /api/tasks/:id: eliminar una tarea
 export const deleteTask = async (req, res) => {
@@ -129,5 +165,30 @@ export const updateTask = async (req, res) => {
         }
     } catch (err) {
         res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
+    }
+};
+
+//GET /api/author_task/:id obtener tarea por ID incluyendo la información del usuario autor
+export const author2Task = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const listedTaskID = await tasksModel.findByPk(id,{
+            attributes: {
+                exclude: ["user_id"]
+            },
+            include: [
+                {
+                    Model: userModel,
+                    as: "author",
+                    through: { //Para no mostrar tablas intermedias
+                        attributes: [],
+                    }
+                }
+            ],
+        }
+    )
+    } catch (err) {
+
     }
 };

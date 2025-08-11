@@ -152,3 +152,5 @@ export const updateUser = async (req, res) => {
         res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
     }
 };
+
+

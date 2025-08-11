@@ -1,6 +1,6 @@
 import { sequelize } from "../config/database.js";
 import { DataTypes } from "sequelize";
-import tasksModel from "./tasks.model.js";
+import personModel from "./person.model.js";
 
 const userModel = sequelize.define("user", {
     name: {
@@ -17,11 +17,12 @@ const userModel = sequelize.define("user", {
     }
 },{
     timestamps: false,
-    //createdAt: createdAt
 })
 
-// RELACIONES:
-tasksModel.belongsTo(userModel, {foreignKey: "user_id"});
-tasksModel.hasMany(tasksModel, {foreignKey: "user_id"});
+//RELACIONES:
+
+personModel.belongsTo (userModel, {foreignKey: "person_id"});
+userModel.hasOne(personModel, {foreignKey: "person_id"});
+
 
 export default userModel
