@@ -6,6 +6,8 @@ const tasksModel = sequelize.define("tasks", {
     title: {type: DataTypes.STRING(100), allowNull: false},
     description: {type: DataTypes.STRING(100), allowNull: false},
     isComplete: {type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false}
+},{
+    timestamps: false,
 })
 
 export default tasksModel
