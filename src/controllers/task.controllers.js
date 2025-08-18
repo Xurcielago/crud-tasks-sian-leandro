@@ -47,7 +47,7 @@ export const createTask = async (req, res) => {
 }
 
 //GET /api/tasks: listar todas las tareas (task)
-export const listAllTask = async (req, res) => {
+export const listAllTask = async (res) => {
     try {
         const listedTasks = await TaskModel.findAll({
             attributes: {

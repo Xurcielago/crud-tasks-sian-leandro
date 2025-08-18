@@ -40,7 +40,7 @@ export const createStudent = async (req, res) => {
 };
 
 //GET /api/users: listar todos los estudiantes (students)
-export const listALLstudent = async (req, res) => {
+export const listAllStudent = async (res) => {
     try {
         const listedStudents = await StudentModel.findAll()
         res.json(listedStudents)

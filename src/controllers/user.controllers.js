@@ -39,7 +39,7 @@ export const createUser = async (req, res) => {
 
         //Validaciones para "student_id"
 
-        
+
         const userCreated = await UserModel.create(req.body)
         res.status(201).json(userCreated)
     } catch (err) {
@@ -48,7 +48,7 @@ export const createUser = async (req, res) => {
 }
 
 //GET /api/users: listar todos los usuarios
-export const listAllUser = async (req, res) => {
+export const listAllUser = async (res) => {
     try {
         const listedUsers = await UserModel.findAll({
             attributes: {
