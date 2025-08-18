@@ -3,7 +3,7 @@ import tasksModel from "../models/tasks.model.js";
 //POST /api/tasks: crear una nueva tarea
 export const createTasks = async (req, res) => {
     try {
-        let {title, description, isComplete} = req.body;
+        let {title, description, is_complete} = req.body;
 
         //Validaciones para "title"
         let titleUnico = await tasksModel.findOne({ where: { title } })
@@ -27,9 +27,9 @@ export const createTasks = async (req, res) => {
             return res.status(400).json({ message: "Error: Campo description no puede estar vacío" })
         }
 
-        //Validaciones para "isComplete"
-        if (typeof isComplete !== "boolean") {
-            return res.status(400).json({ message: "Error: Campo isComplete debe ser de tipo booleano (true o false)" })
+        //Validaciones para "is_complete"
+        if (typeof is_complete !== "boolean") {
+            return res.status(400).json({ message: "Error: Campo is_complete debe ser de tipo booleano (true o false)" })
         }
 
         const taskCreated = await tasksModel.create(req.body)
@@ -86,7 +86,7 @@ export const deleteTask = async (req, res) => {
 //PUT /api/tasks/:id: actualizar una tarea existente (con validaciones)
 export const updateTask = async (req, res) => {
     const { id } = req.params;
-    let {title, description, isComplete} = req.body;
+    let {title, description, is_complete} = req.body;
 
     //Validaciones para "title"
     const titleActual = await tasksModel.findByPk(id);
@@ -113,16 +113,16 @@ export const updateTask = async (req, res) => {
         return res.status(400).json({ message: "Error: Campo description no puede estar vacío" })
     }
 
-    //Validaciones para "isComplete"
-    if (typeof isComplete !== "boolean") {
-        return res.status(400).json({ message: "Error: Campo isComplete debe ser de tipo booleano (true o false)" })
+    //Validaciones para "is_complete"
+    if (typeof is_complete !== "boolean") {
+        return res.status(400).json({ message: "Error: Campo is_complete debe ser de tipo booleano (true o false)" })
     }
 
     try {
         const findTask = await tasksModel.findByPk(id);
 
         if (findTask) {
-            await findTask.update({title, description, isComplete}, {where: {id}});
+            await findTask.update({title, description, is_complete}, {where: {id}});
             res.status(200).json(findTask);
         } else {
             res.status(404).json({ error: 'La tarea que se intenta actualizar no existe'});

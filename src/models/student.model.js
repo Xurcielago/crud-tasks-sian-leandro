@@ -1,23 +1,22 @@
 import { sequelize } from "../config/database.js";
 import { DataTypes } from "sequelize";
-import userModel from "./user.model.js";
 
-const tasksModel = sequelize.define("tasks", {
-    title: {
+const studentModel = sequelize.define("student", {
+    name: {
         type: DataTypes.STRING(100), 
         allowNull: false
     },
 
-    description: {
+    surname: {
         type: DataTypes.STRING(100), 
         allowNull: false
     },
 
-    is_complete: {
-        type: DataTypes.BOOLEAN, 
-        defaultValue: false, 
+    gender: {
+        type: DataTypes.STRING(100), 
         allowNull: false
-    }
+    },
+
 },{
     timestamps: false,
 })
