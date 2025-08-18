@@ -1,7 +1,8 @@
 import { sequelize } from "../config/database.js";
 import { DataTypes } from "sequelize";
+import StudentModel from "./student.model.js";
 
-const userModel = sequelize.define("user", {
+const UserModel = sequelize.define("user", {
     name: {
         type: DataTypes.STRING(100), 
         allowNull: false
@@ -20,4 +21,7 @@ const userModel = sequelize.define("user", {
     timestamps: false,
 })
 
-export default userModel
+UserModel.belongsTo(StudentModel, {foreignKey: "student_id", as: "student" });
+StudentModel.hasMany(UserModel, {foreignKey: "student_id"});
+
+export default UserModel

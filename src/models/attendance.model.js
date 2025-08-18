@@ -1,7 +1,7 @@
 import { sequelize } from "../config/database.js";
 import { DataTypes } from "sequelize";
 
-const attendanceModel = sequelize.define("attendance", {
+const AttendanceModel = sequelize.define("attendance", {
     status: {
         type: DataTypes.STRING(100), 
         allowNull: false
@@ -10,4 +10,4 @@ const attendanceModel = sequelize.define("attendance", {
     timestamps: false,
 })
 
-export default attendanceModel
+export default AttendanceModel

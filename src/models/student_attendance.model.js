@@ -4,7 +4,7 @@ import studentModel from "./student.js";
 import attendanceModel from "./attendance.js";
 
 
-const studentAttendance = sequelize.define("student_attendance", {
+const studentAttendanceModel = sequelize.define("student_attendance", {
  id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -30,4 +30,4 @@ attendanceModel.belongsToMany(studentModel, {
   as: "attendance",
 });
 
-export default studentAttendance
+export default studentAttendanceModel

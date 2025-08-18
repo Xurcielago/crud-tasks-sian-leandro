@@ -1,0 +1,1 @@
+import studentAttendanceModel from "../models/student_attendance.model";

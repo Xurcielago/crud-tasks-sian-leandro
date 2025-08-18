@@ -1,9 +1,9 @@
 import { Router } from "express";
 const taskRoutes = Router();
-import {createTasks, listALLtasks,  listTaskById, deleteTask, updateTask} from "../controllers/tasks.controllers.js"
+import {createTask, listAllTask,  listTaskById, deleteTask, updateTask} from "../controllers/task.controllers.js"
 
-taskRoutes.post("/tasks", createTasks)
-taskRoutes.get("/tasks", listALLtasks)
+taskRoutes.post("/tasks", createTask)
+taskRoutes.get("/tasks", listAllTask)
 taskRoutes.get("/tasks/:id", listTaskById)
 taskRoutes.put("/tasks/:id", updateTask)
 taskRoutes.delete("/tasks/:id", deleteTask)
