@@ -1,9 +1,9 @@
 import { Router } from "express";
 const attendanceRoutes = Router();
-import {createAttendance, listAllAttendance} from "../controllers/student.controllers.js"
+import {createAttendance, listAllAttendance} from "../controllers/attendance.controllers.js"
 
-studentRoutes.post("/attendances", createAttendance)
-studentRoutes.get("/attendances", listAllAttendance)
+attendanceRoutes.post("/attendances", createAttendance)
+attendanceRoutes.get("/attendances", listAllAttendance)
 
 
 export default attendanceRoutes

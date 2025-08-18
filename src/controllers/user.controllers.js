@@ -48,7 +48,7 @@ export const createUser = async (req, res) => {
 }
 
 //GET /api/users: listar todos los usuarios
-export const listAllUser = async (res) => {
+export const listAllUser = async (req, res) => {
     try {
         const listedUsers = await UserModel.findAll({
             attributes: {

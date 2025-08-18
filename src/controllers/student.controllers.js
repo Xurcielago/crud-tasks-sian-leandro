@@ -40,7 +40,7 @@ export const createStudent = async (req, res) => {
 };
 
 //GET /api/users: listar todos los estudiantes (students)
-export const listAllStudent = async (res) => {
+export const listAllStudent = async (req, res) => {
     try {
         const listedStudents = await StudentModel.findAll()
         res.json(listedStudents)
@@ -48,7 +48,6 @@ export const listAllStudent = async (res) => {
     } catch (err) {
         res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
     }
-
 };
 
 

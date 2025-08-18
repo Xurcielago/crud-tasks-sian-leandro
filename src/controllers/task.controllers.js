@@ -1,5 +1,6 @@
 import TaskModel from "../models/task.model.js";
 import UserModel from "../models/user.model.js";
+import StudentModel from "../models/student.model.js";
 
 //POST /api/tasks: crear una nueva tarea
 export const createTask = async (req, res) => {
@@ -34,7 +35,7 @@ export const createTask = async (req, res) => {
         }
 
         //Validaciones para "user_id"
-        const usuarioExiste = await UserModel.findByPk({ where: { user_id } })
+        const usuarioExiste = await UserModel.findByPk(user_id)
         if (!usuarioExiste) {
             return res.status(404).json({ message: "Error: Usuario no encontrado" })
         }
@@ -42,12 +43,12 @@ export const createTask = async (req, res) => {
         const taskCreated = await TaskModel.create(req.body)
         res.status(201).json(taskCreated)
     } catch (err) {
-        res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
+        res.status(500).json({ message: 'Error del lado interno del servidor: ' , error: err.message})
     }
 }
 
 //GET /api/tasks: listar todas las tareas (task)
-export const listAllTask = async (res) => {
+export const listAllTask = async (req, res) => {
     try {
         const listedTasks = await TaskModel.findAll({
             attributes: {
