@@ -1,9 +1,10 @@
-import userModel from "../models/user.model.js";
+import StudentModel from "../models/student.model.js";
+import UserModel from "../models/user.model.js";
 
 //POST /api/users: crear un nuevo usuario
 export const createUser = async (req, res) => {
     try {
-        let {name, email, password} = req.body;
+        let {name, email, password, student_id} = req.body;
 
         //Validaciones para "name"
         const nameLength = await name.length
@@ -22,13 +23,13 @@ export const createUser = async (req, res) => {
         if (email.trim() === '') {
             return res.status(400).json({ message: "Error: Campo email no puede estar vacío" })
         }
-        let emailUnico = await userModel.findOne({ where: { email } })
+        let emailUnico = await UserModel.findOne({ where: { email } })
         if (emailUnico) {
             return res.status(400).json({ message: "Error: Este email ya se encuentra registrado" })
         }
 
         //Validaciones para "password"
-         const passwordLength = await password.length
+        const passwordLength = await password.length
         if (passwordLength > 100) {
             return res.status(400).json({ message: "Error: Campo password no puede contener más de 100 caracteres" })
         }
@@ -36,7 +37,13 @@ export const createUser = async (req, res) => {
             return res.status(400).json({ message: "Error: Campo password no puede estar vacío" })
         }
 
-        const userCreated = await userModel.create(req.body)
+        //Validaciones para "student_id"
+        const studentExiste = await StudentModel.findByPk(student_id)
+        if (!studentExiste) {
+            return res.status(404).json({ message: "Error: El estudiante al que se le intenta asignar este usuario no existe" })
+        }
+
+        const userCreated = await UserModel.create(req.body)
         res.status(201).json(userCreated)
     } catch (err) {
         res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
@@ -44,15 +51,27 @@ export const createUser = async (req, res) => {
 }
 
 //GET /api/users: listar todos los usuarios
-export const listALLuser = async (req, res) => {
+export const listAllUser = async (req, res) => {
     try {
-        const listedUsers = await userModel.findAll()
+        const listedUsers = await UserModel.findAll({
+            attributes: {
+            exclude: ["id", "student_id"],
+            },
+            include: [
+            {
+                model: StudentModel,
+                as: "student",
+                attributes: {
+                    exclude: ["id"],
+                },
+            },
+            ],
+        });
         res.json(listedUsers)
 
     } catch (err) {
         res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
     }
-
 };
 
 //GET /api/users/:id: obtener un usuario por ID
@@ -60,7 +79,20 @@ export const listUserById = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const listedUserID = await userModel.findByPk(id);
+        const listedUserID = await UserModel.findByPk(id, {
+            attributes: {
+            exclude: ["id", "student_id"],
+            },
+            include: [
+            {
+                model: StudentModel,
+                as: "student",
+                attributes: {
+                    exclude: ["id"],
+                },
+            },
+            ],
+        });
         if (listedUserID) {
             res.status(200).json(listedUserID);
         } else {
@@ -75,7 +107,7 @@ export const listUserById = async (req, res) => {
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const findUser = await userModel.findByPk(id);
+        const findUser = await UserModel.findByPk(id);
         if (findUser) {
             await findUser.destroy()
             res.json({ message: 'Usuario eliminado correctamente' })
@@ -90,7 +122,7 @@ export const deleteUser = async (req, res) => {
 //PUT /api/users/:id: actualizar un usuario existente (con validaciones)
 export const updateUser = async (req, res) => {
     const { id } = req.params;
-    let {name, email, password} = req.body;
+    let {name, email, password, student_id} = req.body;
 
     //Validaciones para "name"
     const nameLength = await name.length
@@ -110,6 +142,7 @@ export const updateUser = async (req, res) => {
         return res.status(400).json({ message: "Error: Campo email no puede estar vacío" })
     }
 
+<<<<<<< HEAD
     /*
     const emailExiste = await User.findOne {{
         where: { email: email, id: {[Op.ne]: req.params.id } } ;
@@ -125,6 +158,13 @@ export const updateUser = async (req, res) => {
             if (emailUnico) {
                 return res.status(400).json({ message: "Error: Este email ya se encuentra registrado" })
             }
+=======
+    const emailActual = await UserModel.findByPk(id);
+    if (emailActual.email !== email) {
+        let emailUnico = await UserModel.findOne({ where: { email } })
+        if (emailUnico) {
+            return res.status(400).json({ message: "Error: Este email ya se encuentra registrado" })
+>>>>>>> relaciones
         }
     } else {
         return res.status(404).json({ message: "Error: Usuario no encontrado" })
@@ -139,8 +179,14 @@ export const updateUser = async (req, res) => {
     if (password.trim() === '') {
         return res.status(400).json({ message: "Error: Campo password no puede estar vacío" })
     }
+
+    //Validaciones para "student_id"
+    const studentExiste = await StudentModel.findByPk(student_id)
+    if (!studentExiste) {
+        return res.status(404).json({ message: "Error: El estudiante al que se le intenta asignar este usuario no existe" })
+    }
     try {
-        const findUser = await userModel.findByPk(id);
+        const findUser = await UserModel.findByPk(id);
 
         if (findUser) {
             await findUser.update({name, email, password}, {where: {id}});
