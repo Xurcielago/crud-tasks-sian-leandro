@@ -22,7 +22,7 @@ export const createAttendance = async (req, res) => {
 };
 
 //GET /api/attendances: listar todos los estudiantes (students)
-export const listAllAttendance = async (res) => {
+export const listAllAttendance = async (req, res) => {
     try {
         const listedAttendance = await attendanceModel.findAll()
         res.json(listedAttendance)

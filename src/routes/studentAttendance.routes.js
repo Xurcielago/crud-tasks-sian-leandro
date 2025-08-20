@@ -1,6 +1,6 @@
 import { Router } from "express";
 const studentAttendanceRoutes = Router();
-import { createStudentAttendance } from "../controllers/studentAttendance.controllers";
+import { createStudentAttendance, listAllStudentAttendance } from "../controllers/studentAttendance.controllers.js";
 
 studentAttendanceRoutes.post("/studentAttendances", createStudentAttendance)
 studentAttendanceRoutes.get("/studentAttendances", listAllStudentAttendance)

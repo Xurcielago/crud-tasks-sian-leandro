@@ -23,7 +23,13 @@ const TaskModel = sequelize.define("task", {
 })
 
 // RELACIONES:
-TaskModel.belongsTo(UserModel, {foreignKey: "user_id", as: "author" });
-UserModel.hasMany(TaskModel, {foreignKey: "user_id"});
+TaskModel.belongsTo(UserModel, {
+    foreignKey: "user_id", 
+    as: "author" 
+});
+
+UserModel.hasMany(TaskModel, {
+    foreignKey: "user_id"
+});
 
 export default TaskModel

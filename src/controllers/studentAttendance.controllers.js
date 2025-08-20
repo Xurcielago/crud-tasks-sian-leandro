@@ -1,6 +1,6 @@
-import AttendanceModel from "../models/attendance.model";
-import StudentModel from "../models/student.model";
-import studentAttendanceModel from "../models/student_attendance.model";
+import StudentAttendanceModel from "../models/studentAttendance.model.js";
+import AttendanceModel from "../models/attendance.model.js";
+import StudentModel from "../models/student.model.js";
 
 //POST/api/studentAttendances
 //Crear un nuevo registro de la tabla StundentAttendance
@@ -35,7 +35,7 @@ export const createStudentAttendance = async (req, res) => {
             });
         }
 
-        const studentAttendanceCreated = await studentAttendanceModel.create(req.body)
+        const studentAttendanceCreated = await StudentAttendanceModel.create(req.body)
         res.status(201).json(studentAttendanceCreated)
 
     } catch (err) {
@@ -43,9 +43,29 @@ export const createStudentAttendance = async (req, res) => {
     }
 };
 
-export const listAllStudentAttendance = async (res) => {
+export const listAllStudentAttendance = async (req, res) => {
     try {
-        const listedStudentAttendance = await listAllStudentAttendance.findAll()
+        const listedStudentAttendance = await StudentAttendanceModel.findAll({
+            attributes: {
+            exclude: ["id", "student_id", "attendance_id"],
+            },
+            include: [
+                {
+                model: StudentModel,
+                as: "student",
+                attributes: {
+                    exclude: ["id"],
+                    },
+                },
+                {
+                model: AttendanceModel,
+                as: "attendance",
+                attributes: {
+                    exclude: ["id"],
+                    },
+                },
+            ],         
+        });
         res.json(listedStudentAttendance)
         
     } catch (err) {

@@ -21,7 +21,13 @@ const UserModel = sequelize.define("user", {
     timestamps: false,
 })
 
-UserModel.belongsTo(StudentModel, {foreignKey: "student_id", as: "student" });
-StudentModel.hasMany(UserModel, {foreignKey: "student_id"});
+UserModel.belongsTo(StudentModel, {
+    foreignKey: "student_id", 
+    as: "student"
+ });
+ 
+StudentModel.hasMany(UserModel, {
+    foreignKey: "student_id"
+});
 
 export default UserModel

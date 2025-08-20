@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "start": "node app.js",
-    "dev": "node --watch app.js",
-    "type": "module"
+    "dev": "node --watch app.js"
   },
   "keywords": [],
   "author": "",
