@@ -55,15 +55,12 @@ export const listAllUser = async (req, res) => {
     try {
         const listedUsers = await UserModel.findAll({
             attributes: {
-            exclude: ["id", "student_id"],
+            exclude: ["student_id"],
             },
             include: [
             {
                 model: StudentModel,
                 as: "student",
-                attributes: {
-                    exclude: ["id"],
-                },
             },
             ],
         });
@@ -81,15 +78,12 @@ export const listUserById = async (req, res) => {
     try {
         const listedUserID = await UserModel.findByPk(id, {
             attributes: {
-            exclude: ["id", "student_id"],
+            exclude: ["student_id"],
             },
             include: [
             {
                 model: StudentModel,
                 as: "student",
-                attributes: {
-                    exclude: ["id"],
-                },
             },
             ],
         });
