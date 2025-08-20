@@ -53,16 +53,10 @@ export const listAllStudentAttendance = async (req, res) => {
                 {
                 model: StudentModel,
                 as: "student",
-                attributes: {
-                    exclude: ["id"],
-                    },
                 },
                 {
                 model: AttendanceModel,
                 as: "attendance",
-                attributes: {
-                    exclude: ["id"],
-                    },
                 },
             ],         
         });
