@@ -122,7 +122,7 @@ export const deleteUser = async (req, res) => {
 //PUT /api/users/:id: actualizar un usuario existente (con validaciones)
 export const updateUser = async (req, res) => {
     const { id } = req.params;
-    let {name, email, password} = req.body;
+    let {name, email, password, student_id} = req.body;
 
     //Validaciones para "name"
     const nameLength = await name.length
@@ -157,6 +157,12 @@ export const updateUser = async (req, res) => {
     }
     if (password.trim() === '') {
         return res.status(400).json({ message: "Error: Campo password no puede estar vacío" })
+    }
+
+    //Validaciones para "student_id"
+    const studentExiste = await StudentModel.findByPk(student_id)
+    if (!studentExiste) {
+        return res.status(404).json({ message: "Error: El estudiante al que se le intenta asignar este usuario no existe" })
     }
     try {
         const findUser = await UserModel.findByPk(id);

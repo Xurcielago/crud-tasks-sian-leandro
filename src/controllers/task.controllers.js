@@ -37,7 +37,7 @@ export const createTask = async (req, res) => {
         //Validaciones para "user_id"
         const usuarioExiste = await UserModel.findByPk(user_id)
         if (!usuarioExiste) {
-            return res.status(404).json({ message: "Error: Usuario no encontrado" })
+            return res.status(404).json({ message: "Error: El usuario al que se intenta asignar esta tarea no existe" })
         }
 
         const taskCreated = await TaskModel.create(req.body)
@@ -132,7 +132,7 @@ export const deleteTask = async (req, res) => {
 //PUT /api/tasks/:id: actualizar una tarea (task) existente (con validaciones)
 export const updateTask = async (req, res) => {
     const { id } = req.params;
-    let {title, description, is_complete} = req.body;
+    let {title, description, is_complete, user_id} = req.body;
 
     //Validaciones para "title"
     const titleActual = await TaskModel.findByPk(id);
@@ -163,6 +163,12 @@ export const updateTask = async (req, res) => {
     if (typeof is_complete !== "boolean") {
         return res.status(400).json({ message: "Error: Campo is_complete debe ser de tipo booleano (true o false)" })
     }
+
+    //Validaciones para "user_id"
+    const usuarioExiste = await UserModel.findByPk(user_id)
+    if (!usuarioExiste) {
+        return res.status(404).json({ message: "Error: El usuario al que se intenta asignar esta tarea no existe" })
+    }    
 
     try {
         const findTask = await TaskModel.findByPk(id);
