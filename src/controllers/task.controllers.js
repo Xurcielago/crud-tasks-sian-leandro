@@ -1,11 +1,6 @@
-<<<<<<< HEAD:src/controllers/tasks.controllers.js
-import tasksModel from "../models/tasks.model.js";
-import userModel from "../models/user.model.js";
-=======
 import TaskModel from "../models/task.model.js";
 import UserModel from "../models/user.model.js";
 import StudentModel from "../models/student.model.js";
->>>>>>> relaciones:src/controllers/task.controllers.js
 
 //POST /api/tasks: crear una nueva tarea
 export const createTask = async (req, res) => {
@@ -55,9 +50,6 @@ export const createTask = async (req, res) => {
 //GET /api/tasks: listar todas las tareas (task)
 export const listAllTask = async (req, res) => {
     try {
-<<<<<<< HEAD:src/controllers/tasks.controllers.js
-        const listedTasks = await tasksModel.findAll
-=======
         const listedTasks = await TaskModel.findAll({
             attributes: {
             exclude: ["user_id"],
@@ -78,7 +70,6 @@ export const listAllTask = async (req, res) => {
                 },
             ],
         });
->>>>>>> relaciones:src/controllers/task.controllers.js
         res.json(listedTasks)
 
     } catch (err) {

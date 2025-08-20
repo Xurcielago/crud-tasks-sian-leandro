@@ -142,29 +142,11 @@ export const updateUser = async (req, res) => {
         return res.status(400).json({ message: "Error: Campo email no puede estar vacío" })
     }
 
-<<<<<<< HEAD
-    /*
-    const emailExiste = await User.findOne {{
-        where: { email: email, id: {[Op.ne]: req.params.id } } ;
-    }};
-
-    const userActual = await userModel.findByPk(id);
-    let emailUnico = await userModel.findOne({ where: { email } })
-    */
-    const userActual = await userModel.findByPk(id);
-    if (userActual) {
-        if (userActual.email !== email) {
-            let emailUnico = await userModel.findOne({ where: { email } })
-            if (emailUnico) {
-                return res.status(400).json({ message: "Error: Este email ya se encuentra registrado" })
-            }
-=======
     const emailActual = await UserModel.findByPk(id);
     if (emailActual.email !== email) {
         let emailUnico = await UserModel.findOne({ where: { email } })
         if (emailUnico) {
             return res.status(400).json({ message: "Error: Este email ya se encuentra registrado" })
->>>>>>> relaciones
         }
     } else {
         return res.status(404).json({ message: "Error: Usuario no encontrado" })

@@ -47,7 +47,7 @@ export const listAllStudentAttendance = async (req, res) => {
     try {
         const listedStudentAttendance = await StudentAttendanceModel.findAll({
             attributes: {
-            exclude: ["id", "student_id", "attendance_id"],
+            exclude: ["student_id", "attendance_id"],
             },
             include: [
                 {
