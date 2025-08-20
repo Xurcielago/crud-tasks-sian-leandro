@@ -38,7 +38,10 @@ export const createUser = async (req, res) => {
         }
 
         //Validaciones para "student_id"
-
+        const studentExiste = await StudentModel.findByPk(student_id)
+        if (!studentExiste) {
+            return res.status(404).json({ message: "Error: El estudiante al que se le intenta asignar este usuario no existe" })
+        }
 
         const userCreated = await UserModel.create(req.body)
         res.status(201).json(userCreated)
