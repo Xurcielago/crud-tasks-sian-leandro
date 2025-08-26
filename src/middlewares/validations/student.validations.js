@@ -13,14 +13,18 @@ import StudentModel from "../../models/student.model.js";
 
   body("surname")
     .notEmpty()
-      .withMessage("Campo surname Es obligatorio"),
+      .withMessage("Campo surname Es obligatorio")
+    .isString()
+      .withMessage("Campo name debe ser una cadena de caracteres")
+    .isLength({ min: 2, max: 50 })
+      .withMessage("Campo name debe ser entre 2 y 50 caracteres"),
       
   body("gender")
     .notEmpty()
       .withMessage("Campo gender es obligatorio")
-    /*.custom(async (value) => {
-      if (!((gender == "M") || (gender == "F"))) {
-        throw new console.error("Campo gender debe ser M o F");
+    .custom(async (value) => {
+      if (!((value == "M") || (value == "F"))) {
+        throw new Error("Campo gender debe ser M o F");
       }
-    })*/,
+    }),
 ];
