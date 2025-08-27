@@ -4,47 +4,9 @@ import UserModel from "../models/user.model.js";
 //POST /api/users: crear un nuevo usuario
 export const createUser = async (req, res) => {
     try {
-       /* let {name, email, password, student_id} = req.body;
-
-        //Validaciones para "name"
-        const nameLength = await name.length
-        if (nameLength > 100) {
-            return res.status(400).json({ message: "Error: Campo name no puede contener más de 100 caracteres" })
-        }
-        if (name.trim() === '') {
-            return res.status(400).json({ message: "Error: Campo name no puede estar vacío" })
-        }
-
-        //Validaciones para "email"
-        const emailLength = await email.length
-        if (emailLength > 100) {
-            return res.status(400).json({ message: "Error: Campo email no puede contener más de 100 caracteres" })
-        }
-        if (email.trim() === '') {
-            return res.status(400).json({ message: "Error: Campo email no puede estar vacío" })
-        }
-        let emailUnico = await UserModel.findOne({ where: { email } })
-        if (emailUnico) {
-            return res.status(400).json({ message: "Error: Este email ya se encuentra registrado" })
-        }
-
-        //Validaciones para "password"
-        const passwordLength = await password.length
-        if (passwordLength > 100) {
-            return res.status(400).json({ message: "Error: Campo password no puede contener más de 100 caracteres" })
-        }
-        if (password.trim() === '') {
-            return res.status(400).json({ message: "Error: Campo password no puede estar vacío" })
-        }
-
-        //Validaciones para "student_id"
-        const studentExiste = await StudentModel.findByPk(student_id)
-        if (!studentExiste) {
-            return res.status(404).json({ message: "Error: El estudiante al que se le intenta asignar este usuario no existe" })
-        }
-
-        const userCreated = await UserModel.create(req.body)
-        res.status(201).json(userCreated)*/
+       let {name, email, password, student_id} = req.body;
+       const userCreated = await UserModel.create(req.body)
+       res.status(201).json(userCreated)
     } catch (err) {
         res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
     }
@@ -117,50 +79,6 @@ export const deleteUser = async (req, res) => {
 export const updateUser = async (req, res) => {
     const { id } = req.params;
     let {name, email, password, student_id} = req.body;
-
-    //Validaciones para "name"
-    const nameLength = await name.length
-    if (nameLength > 100) {
-        return res.status(400).json({ message: "Error: Campo name no puede contener más de 100 caracteres" })
-    }
-    if (name.trim() === '') {
-        return res.status(400).json({ message: "Error: Campo name no puede estar vacío" })
-    }
-
-    //Validaciones para "email"
-    const emailLength = await email.length
-    if (emailLength > 100) {
-        return res.status(400).json({ message: "Error: Campo email no puede contener más de 100 caracteres" })
-    }
-    if (email.trim() === '') {
-        return res.status(400).json({ message: "Error: Campo email no puede estar vacío" })
-    }
-
-    const emailActual = await UserModel.findByPk(id);
-    if (emailActual.email !== email) {
-        let emailUnico = await UserModel.findOne({ where: { email } })
-        if (emailUnico) {
-            return res.status(400).json({ message: "Error: Este email ya se encuentra registrado" })
-        }
-    } else {
-        return res.status(404).json({ message: "Error: Usuario no encontrado" })
-    }
-
-
-    //Validaciones para "password"
-    const passwordLength = await password.length
-    if (passwordLength > 100) {
-        return res.status(400).json({ message: "Error: Campo password no puede contener más de 100 caracteres" })
-    }
-    if (password.trim() === '') {
-        return res.status(400).json({ message: "Error: Campo password no puede estar vacío" })
-    }
-
-    //Validaciones para "student_id"
-    const studentExiste = await StudentModel.findByPk(student_id)
-    if (!studentExiste) {
-        return res.status(404).json({ message: "Error: El estudiante al que se le intenta asignar este usuario no existe" })
-    }
     try {
         const findUser = await UserModel.findByPk(id);
 

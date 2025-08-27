@@ -1,6 +1,7 @@
 import { body, param } from "express-validator";
 import UserModel from "../../models/user.model.js";
 import StudentModel from "../../models/student.model.js";
+import { Op } from "sequelize";
 
 export const createUserValidation = [
   
@@ -71,9 +72,9 @@ export const updateUserValidation = [
       .withMessage("Campo email es obligatorio")
     .isEmail()
       .withMessage("Campo email debe usar el formato apropiado user@email.com")
-    .custom(async (value) => {
+    .custom(async (value,  { req }) => {
       const foundUser = await UserModel.findOne({
-        where: { email: value },
+        where: { email: value, id: { [Op.ne]: req.params.id } },
       });
       if (foundUser) {
         throw new Error("Este email ya esta registrado");
