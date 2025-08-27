@@ -4,7 +4,7 @@ import UserModel from "../models/user.model.js";
 //POST /api/users: crear un nuevo usuario
 export const createUser = async (req, res) => {
     try {
-        let {name, email, password, student_id} = req.body;
+       /* let {name, email, password, student_id} = req.body;
 
         //Validaciones para "name"
         const nameLength = await name.length
@@ -44,7 +44,7 @@ export const createUser = async (req, res) => {
         }
 
         const userCreated = await UserModel.create(req.body)
-        res.status(201).json(userCreated)
+        res.status(201).json(userCreated)*/
     } catch (err) {
         res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
     }

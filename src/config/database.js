@@ -15,7 +15,9 @@ export const sequelize = new Sequelize (
 export const start = async() => {
     try {
         await sequelize.authenticate();
+        console.log("-------------------")
         console.log("Conexión exitosa");
+        console.log("-------------------")
         await sequelize.sync()
     } catch (error) {
         console.log("Ocurrió un error durante la conexión con la base de datos")

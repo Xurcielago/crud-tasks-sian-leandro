@@ -21,5 +21,7 @@ app.use("/api", studentAttendanceRoutes);
 
 app.listen(PORT, async() => {
     await start();
+    console.log("-------------------")
     console.log("Servidor operativo")
+    console.log("-------------------")
 })
