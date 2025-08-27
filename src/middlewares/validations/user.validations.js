@@ -15,6 +15,7 @@ export const createUserValidation = [
       .withMessage("Campo name debe ser entre 2 y 50 caracteres"),
 
   body("email")
+    .trim()
     .notEmpty()
       .withMessage("Campo email es obligatorio")
     .isEmail()
@@ -29,12 +30,14 @@ export const createUserValidation = [
     }),
       
   body("password")
+    .trim()
     .notEmpty()
       .withMessage("Campo password es obligatorio")
     .isLength({ min: 2, max: 50 })
       .withMessage("Campo password debe ser entre 2 y 50 caracteres"),
       
   body("student_id")
+    .trim()
     .notEmpty()
       .withMessage("Campo student_id es obligatorio")
     .isInt({min: 1})
@@ -59,6 +62,7 @@ export const updateUserValidation = [
     }),
   
   body("name")
+    .trim()
     .notEmpty()
       .withMessage("Campo name es obligatorio")
     .isString()
@@ -82,6 +86,7 @@ export const updateUserValidation = [
     }),
       
   body("password")
+  .trim()
     .notEmpty()
       .withMessage("Campo password es obligatorio")
     .isLength({ min: 2, max: 50 })

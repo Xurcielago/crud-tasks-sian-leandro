@@ -4,6 +4,7 @@ import StudentModel from "../../models/student.model.js";
  export const createStudentValidation = [
   
   body("name")
+    .trim()
     .notEmpty()
       .withMessage("Campo name es obligatorio")
     .isString()
@@ -12,6 +13,7 @@ import StudentModel from "../../models/student.model.js";
       .withMessage("Campo name debe ser entre 2 y 50 caracteres"),
 
   body("surname")
+    .trim()
     .notEmpty()
       .withMessage("Campo surname Es obligatorio")
     .isString()
