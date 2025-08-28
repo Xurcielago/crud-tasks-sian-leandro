@@ -9,17 +9,17 @@ import {
 
 import { validator } from "../middlewares/validator.js";
 import { 
-    createStudentValidation,
+    createAttendanceValidation,
     deleteAttendanceValidation, 
     getAttendanceByIDValidation, 
     updateAttendanceValidation 
-} from "../middlewares/validations/student.validations.js";
+} from "../middlewares/validations/attendance.validations.js";
 
 const attendanceRoutes = Router();
-attendanceRoutes.post("/attendances", createStudentValidation, validator, createAttendance)
+attendanceRoutes.post("/attendances", createAttendanceValidation, validator, createAttendance)
 attendanceRoutes.get("/attendances", listAllAttendance)
-attendanceRoutes.get("/attendances", getAttendanceByIDValidation, validator, listAttendanceById)
-attendanceRoutes.delete("/attendances", deleteAttendanceValidation, validator, deleteAttendance)
-attendanceRoutes.put("/attendances", updateAttendanceValidation, validator, updateAttendance)
+attendanceRoutes.get("/attendances/:id", getAttendanceByIDValidation, validator, listAttendanceById)
+attendanceRoutes.delete("/attendances/:id", deleteAttendanceValidation, validator, deleteAttendance)
+attendanceRoutes.put("/attendances/:id", updateAttendanceValidation, validator, updateAttendance)
 
 export default attendanceRoutes

@@ -12,8 +12,8 @@ import { validator } from "../middlewares/validator.js";
 const studentAttendanceRoutes = Router();
 studentAttendanceRoutes.post("/studentAttendances", createStudentAttendance)
 studentAttendanceRoutes.get("/studentAttendances", listAllStudentAttendance)
-studentAttendanceRoutes.get("/studentAttendances/id:", listStudentAttendanceById)
-studentAttendanceRoutes.delete("/studentAttendance/id:", deleteStudentAttendance)
-studentAttendanceRoutes.put("/studentAttendance/id:", updateStudentAttendance)
+studentAttendanceRoutes.get("/studentAttendances/:id", listStudentAttendanceById)
+studentAttendanceRoutes.delete("/studentAttendance/:id", deleteStudentAttendance)
+studentAttendanceRoutes.put("/studentAttendance/:id", updateStudentAttendance)
 
 export default studentAttendanceRoutes
