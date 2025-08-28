@@ -25,13 +25,13 @@ const StudentAttendanceModel = sequelize.define("studentAttendance", {
 AttendanceModel.belongsToMany(StudentModel, {
   through: StudentAttendanceModel,
   foreignKey: "attendance_id",
-  as: "attendance",
+  as: "attendances",
 });
 
 StudentModel.belongsToMany(AttendanceModel, {
   through: StudentAttendanceModel,
   foreignKey: "student_id",
-  as: "student",
+  as: "students",
 });
 
 

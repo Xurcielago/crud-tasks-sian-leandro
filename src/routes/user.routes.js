@@ -1,7 +1,4 @@
 import { Router } from "express";
-const userRoutes = Router();
-import { validator } from "../middlewares/validator.js";
-
 import {
     createUser, 
     listAllUser,  
@@ -10,6 +7,7 @@ import {
     updateUser
 } from "../controllers/user.controllers.js"
 
+import { validator } from "../middlewares/validator.js";
 import { 
     createUserValidation, 
     deleteUserValidation, 
@@ -17,6 +15,7 @@ import {
     updateUserValidation
 } from "../middlewares/validations/user.validations.js";
 
+const userRoutes = Router();
 userRoutes.post("/users", createUserValidation, validator, createUser)
 userRoutes.get("/users", listAllUser)
 userRoutes.get("/users/:id", getUserByIDValidation, validator, listUserById)

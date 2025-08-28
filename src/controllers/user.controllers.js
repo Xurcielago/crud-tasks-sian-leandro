@@ -83,7 +83,7 @@ export const updateUser = async (req, res) => {
         const findUser = await UserModel.findByPk(id);
 
         if (findUser) {
-            await findUser.update({name, email, password}, {where: {id}});
+            await findUser.update({name, email, password, student_id}, {where: {id}});
             res.status(200).json(findUser);
         } else {
             res.status(404).json({ error: 'El usuario que se intenta actualizar no existe' });

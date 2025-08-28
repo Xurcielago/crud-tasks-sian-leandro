@@ -43,6 +43,8 @@ export const createStudentAttendance = async (req, res) => {
     }
 };
 
+//GET/api/studentAttendances
+//Ver todos los registro de la tabla StundentAttendance
 export const listAllStudentAttendance = async (req, res) => {
     try {
         const listedStudentAttendance = await StudentAttendanceModel.findAll({
@@ -66,3 +68,70 @@ export const listAllStudentAttendance = async (req, res) => {
         res.status(500).json({message: "Error interno del lado del servidor", error: err.message})
     }
 };
+
+//GET/api/studentAttendances/id:
+//Obtiene un registro tabla StundentAttendance especificando el ID
+export const listStudentAttendanceById = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const listedStudentAttendance = await StudentAttendanceModel.findByPk(id, {
+            attributes: {
+            exclude: ["student_id", "attendance_id"],
+            },
+            include: [
+                {
+                model: StudentModel,
+                as: "student",
+                },
+                {
+                model: AttendanceModel,
+                as: "attendance",
+                },
+            ],         
+        });
+        if (listedStudentAttendance) {
+            res.status(200).json(listedStudentAttendance);
+        } else {
+            res.status(404).json({ message: 'El registro de asistencia buscado no existe' });
+        }
+    } catch (err) {
+        res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
+    }
+};
+
+//DELETE/api/studentAttendances/id:
+//Borra un registro de la tabla studentAttendance especificando el ID
+export const deleteStudentAttendance = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const findStudentAttendance = await StudentAttendanceModel.findByPk(id);
+        if (findStudentAttendance) {
+            await findStudentAttendance.destroy()
+            res.json({ message: 'Registro de asistencia eliminado correctamente' })
+        } else {
+            res.status(404).json({ message: 'El registro de asistencia que se intenta eliminar no existe' })
+        }
+    } catch (err) {
+        res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
+    }
+};
+
+//PUT/api/studentAttendances/id:
+//Actualiza un registro de la tabla studentAttendance especificando el ID
+export const updateStudentAttendance = async (req, res) => {
+    const { id } = req.params;
+    let {attendance_date, student_id, attendance_id} = req.body;
+    try {
+        const findStudentAttendance = await StudentAttendanceModel.findByPk(id);
+
+        if (findStudentAttendance) {
+            await findStudentAttendance.update({attendance_date, student_id, attendance_id}, {where: {id}});
+            res.status(200).json(findStudentAttendance);
+        } else {
+            res.status(404).json({ error: 'El registro de asistencia que se intenta actualizar no existe' });
+        }
+    } catch (err) {
+        res.status(500).json({ message: 'Error del lado interno del servidor: ', error: err.message })
+    } 
+}

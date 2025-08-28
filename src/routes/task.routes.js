@@ -1,7 +1,15 @@
 import { Router } from "express";
-const taskRoutes = Router();
-import {createTask, listAllTask,  listTaskById, deleteTask, updateTask} from "../controllers/task.controllers.js"
+import {
+    createTask, 
+    listAllTask,  
+    listTaskById, 
+    deleteTask, 
+    updateTask
+} from "../controllers/task.controllers.js"
 
+import { validator } from "../middlewares/validator.js";
+
+const taskRoutes = Router();
 taskRoutes.post("/tasks", createTask)
 taskRoutes.get("/tasks", listAllTask)
 taskRoutes.get("/tasks/:id", listTaskById)
