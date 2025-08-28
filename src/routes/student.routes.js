@@ -5,18 +5,21 @@ import {
     listStudentById,
     deleteStudent,
     updateStudent
-} from "../controllers/student.controllers.js"
+} from "../controllers/student.controllers.js";
 
 import { validator } from "../middlewares/validator.js";
 import { 
-    createStudentValidation 
+    createStudentValidation,
+    updateStudentValidation,
+    deleteStudentValidation,
+    getStudentByIDValidation
 } from "../middlewares/validations/student.validations.js";
 
 const studentRoutes = Router();
 studentRoutes.post("/students", createStudentValidation, validator, createStudent)
 studentRoutes.get("/students", listAllStudent)
-studentRoutes.get("/students/:id", listStudentById)
-studentRoutes.delete("/students/:id", deleteStudent)
-studentRoutes.put("/students/:id", updateStudent)
+studentRoutes.get("/students/:id", getStudentByIDValidation, validator, listStudentById)
+studentRoutes.delete("/students/:id", deleteStudentValidation, validator, deleteStudent)
+studentRoutes.put("/students/:id", updateStudentValidation, validator, updateStudent)
 
 export default studentRoutes

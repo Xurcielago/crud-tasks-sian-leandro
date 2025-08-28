@@ -5,18 +5,21 @@ import {
     listAttendanceById,
     deleteAttendance,
     updateAttendance
-} from "../controllers/attendance.controllers.js"
+} from "../controllers/attendance.controllers.js";
 
 import { validator } from "../middlewares/validator.js";
 import { 
-    createStudentValidation 
+    createStudentValidation,
+    deleteAttendanceValidation, 
+    getAttendanceByIDValidation, 
+    updateAttendanceValidation 
 } from "../middlewares/validations/student.validations.js";
 
 const attendanceRoutes = Router();
 attendanceRoutes.post("/attendances", createStudentValidation, validator, createAttendance)
 attendanceRoutes.get("/attendances", listAllAttendance)
-attendanceRoutes.get("/attendances", listAttendanceById)
-attendanceRoutes.delete("/attendances", deleteAttendance)
-attendanceRoutes.put("/attendances", updateAttendance)
+attendanceRoutes.get("/attendances", getAttendanceByIDValidation, validator, listAttendanceById)
+attendanceRoutes.delete("/attendances", deleteAttendanceValidation, validator, deleteAttendance)
+attendanceRoutes.put("/attendances", updateAttendanceValidation, validator, updateAttendance)
 
 export default attendanceRoutes
